@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente Web - Productos Northwind</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        /* Formulario de búsqueda */
+        .search-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-form h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input[type="number"] {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-search {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Mensajes de alerta */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Producto encontrado */
+        .product-detail {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-detail h3 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .product-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .product-detail-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .product-detail-item strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .product-detail-item span {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        /* Tabla de productos */
+        .table-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        td {
+            padding: 15px;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .badge-discontinued {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .no-products {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Gestión de Productos Northwind</h1>
+        <p class="subtitle">Cliente Web - Consumo de API REST</p>
+
+        <!-- Formulario de Búsqueda -->
+        <div class="search-form">
+            <h2>🔍 Buscar Producto por ID</h2>
+            <form action="/buscar" method="get">
+                <div class="form-group">
+                    <label for="id">ID del Producto:</label>
+                    <input type="number" id="id" name="id" placeholder="Ej: 1" min="1" required>
+                    <button type="submit" class="btn-search">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Mensajes de éxito o error -->
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+        <div th:if="${error}" class="alert alert-error" th:text="${error}"></div>
+
+        <!-- Producto Encontrado (solo si se buscó y se encontró) -->
+        <div th:if="${productoBuscado}" class="product-detail">
+            <h3>✅ Producto Encontrado</h3>
+            <div class="product-detail-grid">
+                <div class="product-detail-item">
+                    <strong>ID</strong>
+                    <span th:text="${productoBuscado.productId}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Nombre</strong>
+                    <span th:text="${productoBuscado.productName}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Proveedor ID</strong>
+                    <span th:text="${productoBuscado.supplierId}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Categoría ID</strong>
+                    <span th:text="${productoBuscado.categoryId}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Cantidad por Unidad</strong>
+                    <span th:text="${productoBuscado.quantityPerUnit}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Precio Unitario</strong>
+                    <span>$<span th:text="${productoBuscado.unitPrice}"></span></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Unidades en Stock</strong>
+                    <span th:text="${productoBuscado.unitsInStock}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Unidades en Pedido</strong>
+                    <span th:text="${productoBuscado.unitsOnOrder}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Nivel de Reorden</strong>
+                    <span th:text="${productoBuscado.reorderLevel}"></span>
+                </div>
+                <div class="product-detail-item">
+                    <strong>Estado</strong>
+                    <span th:text="${productoBuscado.discontinued ? 'Descontinuado' : 'Activo'}"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de Todos los Productos -->
+        <div class="table-section">
+            <h2>📦 Lista de Todos los Productos</h2>
+            
+            <div th:if="${products != null and !products.isEmpty()}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Cantidad/Unidad</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>En Pedido</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.productId}"></td>
+                            <td th:text="${product.productName}"></td>
+                            <td th:text="${product.quantityPerUnit}"></td>
+                            <td class="price">$<span th:text="${product.unitPrice}"></span></td>
+                            <td th:text="${product.unitsInStock}"></td>
+                            <td th:text="${product.unitsOnOrder}"></td>
+                            <td>
+                                <span th:if="${product.discontinued}" class="badge badge-discontinued">Descontinuado</span>
+                                <span th:unless="${product.discontinued}" class="badge badge-active">Activo</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div th:if="${products == null or products.isEmpty()}" class="no-products">
+                ⚠️ No se pudieron cargar los productos. Asegúrate de que el API esté corriendo en http://localhost:8080
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -238,12 +238,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>🛒 Gestión de Productos Northwind</h1>
+        <h1>Gestión de Productos Northwind</h1>
         <p class="subtitle">Cliente Web - Consumo de API REST</p>
 
         <!-- Formulario de Búsqueda -->
         <div class="search-form">
-            <h2>🔍 Buscar Producto por ID</h2>
+            <h2>Buscar Producto por ID</h2>
             <form action="/buscar" method="get">
                 <div class="form-group">
                     <label for="id">ID del Producto:</label>
@@ -259,7 +259,7 @@
 
         <!-- Producto Encontrado (solo si se buscó y se encontró) -->
         <div th:if="${productoBuscado}" class="product-detail">
-            <h3>✅ Producto Encontrado</h3>
+            <h3>Producto Encontrado</h3>
             <div class="product-detail-grid">
                 <div class="product-detail-item">
                     <strong>ID</strong>
@@ -278,35 +278,19 @@
                     <span th:text="${productoBuscado.categoryId}"></span>
                 </div>
                 <div class="product-detail-item">
-                    <strong>Cantidad por Unidad</strong>
-                    <span th:text="${productoBuscado.quantityPerUnit}"></span>
+                    <strong>Unidad</strong>
+                    <span th:text="${productoBuscado.unit}"></span>
                 </div>
                 <div class="product-detail-item">
-                    <strong>Precio Unitario</strong>
-                    <span>$<span th:text="${productoBuscado.unitPrice}"></span></span>
-                </div>
-                <div class="product-detail-item">
-                    <strong>Unidades en Stock</strong>
-                    <span th:text="${productoBuscado.unitsInStock}"></span>
-                </div>
-                <div class="product-detail-item">
-                    <strong>Unidades en Pedido</strong>
-                    <span th:text="${productoBuscado.unitsOnOrder}"></span>
-                </div>
-                <div class="product-detail-item">
-                    <strong>Nivel de Reorden</strong>
-                    <span th:text="${productoBuscado.reorderLevel}"></span>
-                </div>
-                <div class="product-detail-item">
-                    <strong>Estado</strong>
-                    <span th:text="${productoBuscado.discontinued ? 'Descontinuado' : 'Activo'}"></span>
+                    <strong>Precio</strong>
+                    <span>$<span th:text="${productoBuscado.price}"></span></span>
                 </div>
             </div>
         </div>
 
         <!-- Tabla de Todos los Productos -->
         <div class="table-section">
-            <h2>📦 Lista de Todos los Productos</h2>
+            <h2>Lista de Todos los Productos</h2>
             
             <div th:if="${products != null and !products.isEmpty()}">
                 <table>
@@ -314,32 +298,23 @@
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Cantidad/Unidad</th>
+                            <th>Unidad</th>
                             <th>Precio</th>
-                            <th>Stock</th>
-                            <th>En Pedido</th>
-                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="product : ${products}">
                             <td th:text="${product.productId}"></td>
                             <td th:text="${product.productName}"></td>
-                            <td th:text="${product.quantityPerUnit}"></td>
-                            <td class="price">$<span th:text="${product.unitPrice}"></span></td>
-                            <td th:text="${product.unitsInStock}"></td>
-                            <td th:text="${product.unitsOnOrder}"></td>
-                            <td>
-                                <span th:if="${product.discontinued}" class="badge badge-discontinued">Descontinuado</span>
-                                <span th:unless="${product.discontinued}" class="badge badge-active">Activo</span>
-                            </td>
+                            <td th:text="${product.unit}"></td>
+                            <td class="price">$<span th:text="${product.price}"></span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             
             <div th:if="${products == null or products.isEmpty()}" class="no-products">
-                ⚠️ No se pudieron cargar los productos. Asegúrate de que el API esté corriendo en http://localhost:8080
+                No se pudieron cargar los productos. Asegúrate de que el API esté corriendo en http://localhost:8080
             </div>
         </div>
     </div>

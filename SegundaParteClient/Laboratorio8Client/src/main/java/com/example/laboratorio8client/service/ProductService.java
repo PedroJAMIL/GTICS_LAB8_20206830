@@ -10,10 +10,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Servicio que consume el API REST de productos.
- * Utiliza RestTemplate para hacer las peticiones HTTP.
- */
 @Service
 public class ProductService {
 
@@ -23,12 +19,6 @@ public class ProductService {
     @Value("${api.base.url}")
     private String apiBaseUrl;
 
-    /**
-     * Obtiene todos los productos del API.
-     * Consume: GET http://localhost:8080/product
-     * 
-     * @return Lista de productos
-     */
     public List<Product> getAllProducts() {
         try {
             String url = apiBaseUrl + "/product";
@@ -40,19 +30,11 @@ public class ProductService {
         }
     }
 
-    /**
-     * Obtiene un producto por su ID del API.
-     * Consume: GET http://localhost:8080/product/{id}
-     * 
-     * @param id ID del producto
-     * @return Producto encontrado o null si no existe
-     */
     public Product getProductById(Integer id) {
         try {
             String url = apiBaseUrl + "/product/" + id;
             return restTemplate.getForObject(url, Product.class);
         } catch (HttpClientErrorException e) {
-            // Si el API retorna 400 o 404, retornamos null
             System.err.println("Producto no encontrado: " + e.getMessage());
             return null;
         } catch (Exception e) {

@@ -12,10 +12,6 @@ public class Laboratorio8ClientApplication {
         SpringApplication.run(Laboratorio8ClientApplication.class, args);
     }
 
-    /**
-     * Bean RestTemplate para consumir el API REST.
-     * RestTemplate es la clase de Spring que permite hacer peticiones HTTP.
-     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

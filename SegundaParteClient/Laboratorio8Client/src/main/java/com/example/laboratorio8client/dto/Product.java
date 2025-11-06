@@ -1,27 +1,17 @@
 package com.example.laboratorio8client.dto;
 
-/**
- * DTO que representa un Producto.
- * Coincide con la estructura JSON que retorna el API.
- */
 public class Product {
     
     private Integer productId;
     private String productName;
     private Integer supplierId;
     private Integer categoryId;
-    private String quantityPerUnit;
-    private Double unitPrice;
-    private Integer unitsInStock;
-    private Integer unitsOnOrder;
-    private Integer reorderLevel;
-    private Boolean discontinued;
+    private String unit;
+    private Double price;
 
-    // Constructor vacío
     public Product() {
     }
 
-    // Getters y Setters
     public Integer getProductId() {
         return productId;
     }
@@ -54,51 +44,20 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public String getQuantityPerUnit() {
-        return quantityPerUnit;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setQuantityPerUnit(String quantityPerUnit) {
-        this.quantityPerUnit = quantityPerUnit;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Integer getUnitsInStock() {
-        return unitsInStock;
-    }
-
-    public void setUnitsInStock(Integer unitsInStock) {
-        this.unitsInStock = unitsInStock;
-    }
-
-    public Integer getUnitsOnOrder() {
-        return unitsOnOrder;
-    }
-
-    public void setUnitsOnOrder(Integer unitsOnOrder) {
-        this.unitsOnOrder = unitsOnOrder;
-    }
-
-    public Integer getReorderLevel() {
-        return reorderLevel;
-    }
-
-    public void setReorderLevel(Integer reorderLevel) {
-        this.reorderLevel = reorderLevel;
-    }
-
-    public Boolean getDiscontinued() {
-        return discontinued;
-    }
-
-    public void setDiscontinued(Boolean discontinued) {
-        this.discontinued = discontinued;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }
+

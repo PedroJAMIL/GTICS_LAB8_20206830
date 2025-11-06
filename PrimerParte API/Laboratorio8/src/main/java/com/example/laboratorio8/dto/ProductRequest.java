@@ -2,38 +2,26 @@ package com.example.laboratorio8.dto;
 
 public class ProductRequest {
     
-    private Integer productId;        // Opcional para POST, obligatorio para PUT
+    private Integer productId;
     private String productName;
     private Integer supplierId;
     private Integer categoryId;
-    private String quantityPerUnit;
-    private Double unitPrice;
-    private Integer unitsInStock;
-    private Integer unitsOnOrder;
-    private Integer reorderLevel;
-    private Boolean discontinued;
+    private String unit;
+    private Double price;
 
-    // Constructores
     public ProductRequest() {
     }
 
     public ProductRequest(Integer productId, String productName, Integer supplierId,
-                         Integer categoryId, String quantityPerUnit, Double unitPrice,
-                         Integer unitsInStock, Integer unitsOnOrder, Integer reorderLevel,
-                         Boolean discontinued) {
+                         Integer categoryId, String unit, Double price) {
         this.productId = productId;
         this.productName = productName;
         this.supplierId = supplierId;
         this.categoryId = categoryId;
-        this.quantityPerUnit = quantityPerUnit;
-        this.unitPrice = unitPrice;
-        this.unitsInStock = unitsInStock;
-        this.unitsOnOrder = unitsOnOrder;
-        this.reorderLevel = reorderLevel;
-        this.discontinued = discontinued;
+        this.unit = unit;
+        this.price = price;
     }
 
-    // Getters y Setters
     public Integer getProductId() {
         return productId;
     }
@@ -66,51 +54,19 @@ public class ProductRequest {
         this.categoryId = categoryId;
     }
 
-    public String getQuantityPerUnit() {
-        return quantityPerUnit;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setQuantityPerUnit(String quantityPerUnit) {
-        this.quantityPerUnit = quantityPerUnit;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
-    }
-
-    public Integer getUnitsInStock() {
-        return unitsInStock;
-    }
-
-    public void setUnitsInStock(Integer unitsInStock) {
-        this.unitsInStock = unitsInStock;
-    }
-
-    public Integer getUnitsOnOrder() {
-        return unitsOnOrder;
-    }
-
-    public void setUnitsOnOrder(Integer unitsOnOrder) {
-        this.unitsOnOrder = unitsOnOrder;
-    }
-
-    public Integer getReorderLevel() {
-        return reorderLevel;
-    }
-
-    public void setReorderLevel(Integer reorderLevel) {
-        this.reorderLevel = reorderLevel;
-    }
-
-    public Boolean getDiscontinued() {
-        return discontinued;
-    }
-
-    public void setDiscontinued(Boolean discontinued) {
-        this.discontinued = discontinued;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

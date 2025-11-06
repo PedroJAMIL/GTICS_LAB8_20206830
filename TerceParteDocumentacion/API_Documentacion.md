@@ -10,7 +10,7 @@ Documentación de los endpoints del API REST para gestionar productos de la base
 
 Obtiene la lista completa de productos de la base de datos.
 
-**URL:** GET `/product`
+**URL:** GET /product
 
 **Respuesta exitosa (200):**
 ```json
@@ -36,7 +36,7 @@ Obtiene la lista completa de productos de la base de datos.
 
 Obtiene un producto específico según su ID.
 
-**URL:** GET `/product/{id}`
+**URL:** GET /product/{id}
 
 **Parámetros:**
 - `id` (Integer) - ID del producto en la URL
@@ -205,25 +205,12 @@ Todos los endpoints que devuelven productos usan esta estructura:
 - discontinued: Si está descontinuado (true/false)
 
 ---
-
-## Códigos HTTP
-
-- **200 OK** - Operación exitosa
-- **201 Created** - Recurso creado exitosamente
-- **400 Bad Request** - Error en los datos o validación
-- **500 Internal Server Error** - Error del servidor
-
----
-
 ## Notas
 
 - No se requiere autenticación
 - Todas las respuestas son en formato JSON
 - Base de datos: MySQL (Northwind)
-- Framework: Spring Boot 3.5.7
 
----
-
-**Laboratorio 8 - GTICS**  
+Laboratorio 8 - GTICS  
 Fecha: 2 de Noviembre de 2025
 
